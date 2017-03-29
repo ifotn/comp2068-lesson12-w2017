@@ -8,13 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // reference our app component
-import { AppComponent } from './app.component';
+import { BookComponent } from './components/book.component';
 
 @NgModule({
-    declarations: [ AppComponent ],
+    declarations: [ BookComponent ],
     imports: [ BrowserModule, FormsModule, HttpModule],
     providers: [],
-    bootstrap: [ AppComponent ]
+    bootstrap: [ BookComponent ]
 })
 
 export class AppModule {}

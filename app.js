@@ -11,6 +11,8 @@ let config = require('./config/globals');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+// add api controller
+let api = require('./routes/api');
 
 
 var app = express();
@@ -33,5 +35,6 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/api', api);
 
 module.exports = app;
