@@ -9,10 +9,10 @@ var bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let config = require('./config/globals');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./server/controllers/index');
+var users = require('./server/controllers/users');
 // add api controller
-let api = require('./routes/api');
+let api = require('./server/controllers/api');
 
 
 var app = express();

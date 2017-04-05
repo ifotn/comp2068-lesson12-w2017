@@ -3,6 +3,7 @@
  */
 import { Component } from '@angular/core';
 import { BookService } from '../services/book.service';
+import {responseInterceptor} from "angular-in-memory-web-api";
 
 @Component({
     selector: 'book',
@@ -12,7 +13,11 @@ import { BookService } from '../services/book.service';
 })
 
 export class BookComponent {
-    title = 'MEAN SPA with Angular 2';
+    _id: string;
+    title: string;
+    author: string;
+    year: number;
+    price: number;
     books: Array<any>;
 
     // constructor
@@ -25,6 +30,40 @@ export class BookComponent {
     getBooks() {
         this.bookService.getBooks().subscribe(response => {
             this.books = response;
+        });
+    }
+
+    // add a new book
+    addBook() {
+        // instantiate new book object
+        let newBook = {
+            title: this.title,
+            year: this.year,
+            author: this.author
+        };
+
+        // call the book service add method
+        this.bookService.addBook(newBook).subscribe(response => {
+            console.log('Success ' + response)
+            this.books.push(newBook);
+            this.clearForm();
+        })
+    }
+
+    // clear form
+    clearForm() {
+        this.title = null;
+        this.year = null;
+        this.author = null;
+    }
+
+    // select book to be edited
+    selectBook(_id) {
+        this.bookService.selectBook(_id).subscribe(response => {
+           this._id = response._id,
+           this.title = response.title,
+           this.year = response.year,
+           this.author = response.author
         });
     }
 }

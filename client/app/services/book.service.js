@@ -24,6 +24,18 @@ var BookService = (function () {
     BookService.prototype.getBooks = function () {
         return this.http.get('/api').map(function (response) { return response.json(); });
     };
+    // post
+    BookService.prototype.addBook = function (newBook) {
+        // set the headers as json
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        // call the post method of our server api
+        return this.http.post('/api', JSON.stringify(newBook), { headers: headers }).map(function (response) { return response.json(); });
+    };
+    // select one
+    BookService.prototype.selectBook = function (_id) {
+        return this.http.get('/api/' + _id).map(function (response) { return response.json(); });
+    };
     return BookService;
 }());
 BookService = __decorate([

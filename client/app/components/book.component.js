@@ -18,7 +18,6 @@ var BookComponent = (function () {
     // constructor
     function BookComponent(bookService) {
         this.bookService = bookService;
-        this.title = 'MEAN SPA with Angular 2';
         // call get as soon as component is instantiated
         this.getBooks();
     }
@@ -27,6 +26,38 @@ var BookComponent = (function () {
         var _this = this;
         this.bookService.getBooks().subscribe(function (response) {
             _this.books = response;
+        });
+    };
+    // add a new book
+    BookComponent.prototype.addBook = function () {
+        var _this = this;
+        // instantiate new book object
+        var newBook = {
+            title: this.title,
+            year: this.year,
+            author: this.author
+        };
+        // call the book service add method
+        this.bookService.addBook(newBook).subscribe(function (response) {
+            console.log('Success ' + response);
+            _this.books.push(newBook);
+            _this.clearForm();
+        });
+    };
+    // clear form
+    BookComponent.prototype.clearForm = function () {
+        this.title = null;
+        this.year = null;
+        this.author = null;
+    };
+    // select book to be edited
+    BookComponent.prototype.selectBook = function (_id) {
+        var _this = this;
+        this.bookService.selectBook(_id).subscribe(function (response) {
+            _this._id = response._id,
+                _this.title = response.title,
+                _this.year = response.year,
+                _this.author = response.author;
         });
     };
     return BookComponent;

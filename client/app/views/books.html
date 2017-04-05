@@ -1,19 +1,21 @@
-<h1 class="text-center">{{title}}</h1>
+<h1 class="text-center">MEAN SPA with Angular 2</h1>
 
 <section>
     <fieldset class="form-group">
         <label class="control-label col-sm-1" for="title">Title: *</label>
-        <input name="title" id="title" required />
+        <input name="title" id="title" required [(ngModel)]="title" />
     </fieldset>
     <fieldset class="form-group">
         <label class="control-label col-sm-1" for="year">Year: *</label>
-        <input name="year" id="year" required type="number" />
+        <input name="year" id="year" required type="number" [(ngModel)]="year" />
     </fieldset>
     <fieldset class="form-group">
         <label class="control-label col-sm-1" for="author">Author: *</label>
-        <input name="author" id="author" required />
+        <input name="author" id="author" required [(ngModel)]="author" />
     </fieldset>
-    <button class="btn btn-primary col-sm-offset-1">Add</button>
+    <button class="btn btn-primary col-sm-offset-1" (click)="addBook()" *ngIf="!_id">Add</button>
+    <button class="btn btn-primary col-sm-offset-1" (click)="updateBook()" *ngIf="_id">Update</button>
+    <input id="_id" name="_id" [(ngModel)]="_id" />
 </section>
 
 <h2>Books</h2>
@@ -30,12 +32,9 @@
         <td>{{book.year}}</td>
         <td>{{book.author}}</td>
         <td>
-            <a href="/api/{{book._id}}">
-                <button class="btn btn-primary">Edit</button>
-            </a>
-            <a href="/api/delete/{{book._id}}">
-                <button class="btn btn-danger">Delete</button>
-            </a>
+            <button class="btn btn-primary" (click)="selectBook(book._id)">Edit</button>
+
+            <button class="btn btn-danger confirmation" onclick="return confirm('Are you sure you want delete this?');">Delete</button>
         </td>
     </tr>
 </table>

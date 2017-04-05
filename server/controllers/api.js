@@ -18,5 +18,18 @@ router.get('/', function (req, res, next) {
     });
 });
 
+// POST - save a new book
+router.post('/', function (req, res, next) {
+    let newBook = new Book(req.body);
+
+    newBook.save(function (err, book) {
+       if (err) {
+           console.log(err);
+           return res.send(err).status(501);
+       }
+       res.json(book).status(201);
+    });
+});
+
 module.exports = router;
 
