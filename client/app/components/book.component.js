@@ -46,19 +46,46 @@ var BookComponent = (function () {
     };
     // clear form
     BookComponent.prototype.clearForm = function () {
+        this._id = null;
         this.title = null;
         this.year = null;
         this.author = null;
     };
     // select book to be edited
-    BookComponent.prototype.selectBook = function (_id) {
+    BookComponent.prototype.selectBook = function (book) {
+        this._id = book._id,
+            this.title = book.title,
+            this.year = book.year,
+            this.author = book.author;
+        /*this.bookService.selectBook(_id).subscribe(response => {
+           this._id = response._id,
+           this.title = response.title,
+           this.year = response.year,
+           this.author = response.author
+        }); */
+    };
+    // update book
+    BookComponent.prototype.updateBook = function () {
         var _this = this;
-        this.bookService.selectBook(_id).subscribe(function (response) {
-            _this._id = response._id,
-                _this.title = response.title,
-                _this.year = response.year,
-                _this.author = response.author;
+        var book = {
+            _id: this._id,
+            title: this.title,
+            year: this.year,
+            author: this.author
+        };
+        this.bookService.updateBook(book).subscribe(function (response) {
+            _this.clearForm();
+            _this.getBooks();
         });
+    };
+    // delete
+    BookComponent.prototype.deleteBook = function (_id) {
+        var _this = this;
+        if (confirm('Are you sure???')) {
+            this.bookService.deleteBook(_id).subscribe(function (response) {
+                _this.getBooks();
+            });
+        }
     };
     return BookComponent;
 }());

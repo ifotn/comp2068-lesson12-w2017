@@ -36,6 +36,18 @@ var BookService = (function () {
     BookService.prototype.selectBook = function (_id) {
         return this.http.get('/api/' + _id).map(function (response) { return response.json(); });
     };
+    // update
+    BookService.prototype.updateBook = function (book) {
+        // set the headers as json
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        // call the http put method for update
+        return this.http.put('/api/' + book._id, JSON.stringify(book), { headers: headers }).map(function (response) { return response.json(); });
+    };
+    // delete
+    BookService.prototype.deleteBook = function (_id) {
+        return this.http.delete('/api/' + _id).map(function (response) { return response.json(); });
+    };
     return BookService;
 }());
 BookService = __decorate([

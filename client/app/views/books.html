@@ -15,7 +15,8 @@
     </fieldset>
     <button class="btn btn-primary col-sm-offset-1" (click)="addBook()" *ngIf="!_id">Add</button>
     <button class="btn btn-primary col-sm-offset-1" (click)="updateBook()" *ngIf="_id">Update</button>
-    <input id="_id" name="_id" [(ngModel)]="_id" />
+    <button class="btn btn-primary" (click)="clearForm()">Reset</button>
+    <input id="_id" name="_id" [(ngModel)]="_id" type="hidden" />
 </section>
 
 <h2>Books</h2>
@@ -32,9 +33,9 @@
         <td>{{book.year}}</td>
         <td>{{book.author}}</td>
         <td>
-            <button class="btn btn-primary" (click)="selectBook(book._id)">Edit</button>
+            <button class="btn btn-primary" (click)="selectBook(book)">Edit</button>
 
-            <button class="btn btn-danger confirmation" onclick="return confirm('Are you sure you want delete this?');">Delete</button>
+            <button class="btn btn-danger confirmation" (click)="deleteBook(book._id)">Delete</button>
         </td>
     </tr>
 </table>

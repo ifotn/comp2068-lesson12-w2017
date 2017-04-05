@@ -52,18 +52,48 @@ export class BookComponent {
 
     // clear form
     clearForm() {
+        this._id = null;
         this.title = null;
         this.year = null;
         this.author = null;
     }
 
     // select book to be edited
-    selectBook(_id) {
-        this.bookService.selectBook(_id).subscribe(response => {
+    selectBook(book) {
+        this._id = book._id,
+            this.title = book.title,
+            this.year = book.year,
+            this.author = book.author
+        /*this.bookService.selectBook(_id).subscribe(response => {
            this._id = response._id,
            this.title = response.title,
            this.year = response.year,
            this.author = response.author
+        }); */
+    }
+
+    // update book
+    updateBook() {
+        let book = {
+            _id: this._id,
+            title: this.title,
+            year: this.year,
+            author: this.author
+        }
+
+        this.bookService.updateBook(book).subscribe(response => {
+            this.clearForm();
+            this.getBooks();
         });
     }
+
+    // delete
+    deleteBook(_id) {
+        if (confirm('Are you sure???')) {
+            this.bookService.deleteBook(_id).subscribe(response => {
+                this.getBooks();
+            });
+        }
+    }
+
 }

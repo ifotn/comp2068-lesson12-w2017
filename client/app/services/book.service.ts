@@ -32,4 +32,19 @@ export class BookService {
         return this.http.get('/api/' + _id).map(response => response.json());
     }
 
+    // update
+    updateBook(book) {
+        // set the headers as json
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        // call the http put method for update
+        return this.http.put('/api/' + book._id, JSON.stringify(book), { headers: headers}).map(response => response.json());
+    }
+
+    // delete
+    deleteBook(_id) {
+        return this.http.delete('/api/' + _id).map(response => response.json());
+    }
+
 }
